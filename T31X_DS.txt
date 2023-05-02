@@ -1,0 +1,3223 @@
+T31X Smart Video
+Application Processor
+DATA SHEET
+
+Important Notice
+This document and its content are believed to be correct at time of writing. Integrated Silicon Solution Inc.
+(“ISSI") reserves the right to make changes to this document, its content or any ISSI products, at its
+discretion, any time without notice. The text and graphics are for the purpose of illustration and reference
+only. Please confirm that you have the most current documentation.
+No part of this document shall be deemed to be part of any contract or warranty unless specifically
+incorporated by reference into such contract or warranty. This document, its content and any products
+including without limitation any ISSI products or any product you create using the information contained
+herein ("Products"), are provided "AS IS" without warranties of any kind, express or implied, including but
+not limited to, any implied warranties of merchantability, satisfactory quality, fitness for a particular
+purpose or non-infringement. ISSI makes no warranties regarding any standard compliance or as to the
+accuracy, completeness or reliability of this document, its content, or Products, or that the operation of
+any Products will be uninterrupted or error-free. No advice or information, whether oral or written,
+obtained by you using this document may be relied upon, or shall create any warranty. Any use of this
+document and the information contained herein or obtained through the use of this document, or any
+Product, is done at your sole risk and responsibility. Unless otherwise agreed, ISSI shall not be liable for
+any damage or loss arising as a result of or in connection with the use of this document, its content or any
+Product, including without limitation, consequential, punitive, indirect or direct damages.
+This document, its content and any Products contain proprietary and confidential material of ISSI, its
+affiliates or licensors, and may also be covered under a separate non-disclosure agreement between ISSI
+and you. Do not copy, use or disclose this document, its content or any Products unless and to the extent
+you have been given specific written authorization from ISSI. Any unauthorized reproduction, use or
+disclosure of this document, its content, or any part thereof, or any Product will result in economic loss
+and is strictly prohibited.
+Any references in this document to third party products or material are provided for convenience only, and
+do not in any manner serve as an endorsement of that third party products or material, and ISSI has no
+liability therefor. The information contained herein is merely descriptive in nature, and does not constitute
+or imply a promise or intention, to make any offer for the sale or license of any Products, or otherwise to
+enter into any other business and/or any legal relationship.
+All company and brand products and service names are trademarks or registered trademarks of their
+respective holders. The use of any third party trademarks or company names does not imply an
+endorsement by those third parties, or any commercial relationship between ISSI and such third parties.
+Copyright © 2011 Integrated Silicon Solution Inc. All rights reserved.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 1
+
+History
+Version
+
+Date
+
+Author
+
+Rev 1.0
+
+Description
+Initial
+
+Rev 1.1
+
+2022-03-14
+
+eleven
+
+Modify diagram RISC-V frequency and add
+Table3-5
+
+Rev 1.2
+
+2022-04-13
+
+eleven
+
+Modify cpu frequency from 1.5G to 1.4G and
+modify the memory capacity of block diagram
+
+Rev 1.2
+
+2022-04-15
+
+eleven
+
+Modify resolution to 2592x2048
+
+Rev 1.3
+
+2022-05-19
+
+eleven
+
+Modify 3.4.1 Power-On Sequence
+
+Rev 1.4
+
+2022-06-09
+
+eleven
+
+Modify 3.4.1 Power-On Sequence
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 2
+
+Table of Contents
+
+Contents
+
+Table of Contents .................................................................................................................................... 3
+List of Figures .......................................................................................................................................... 5
+List of Tables ........................................................................................................................................... 5
+Introduction .............................................................................................................................................. 6
+1 Overview ..............................................................................................................................................7
+1.1 Block Diagram .............................................................................................................................. 7
+1.2 Features .........................................................................................................................................7
+1.2.1 CPU ............................................................................................................................................ 7
+1.2.2 Video Processor Unit ..................................................................................................................8
+1.2.3 Image Signal Processor ............................................................................................................. 8
+1.2.4.Smart LCD Controller ................................................................................................................. 9
+1.2.5 Video input ..................................................................................................................................9
+1.2.6 Audio System ............................................................................................................................. 9
+1.2.7 Memory Interface ..................................................................................................................... 10
+1.2.8 System Functions .....................................................................................................................10
+1.2.9 Peripherals ............................................................................................................................... 12
+1.2.10 Bootrom .................................................................................................................................. 16
+1.3 Characteristic ...............................................................................................................................17
+2 Packaging and Pinout Information .....................................................................................................18
+2.1 Overview ......................................................................................................................................18
+2.2 Solder Process ............................................................................................................................ 18
+2.3 Moisture Sensitivity Level ............................................................................................................18
+2.4 T31X Package ............................................................................................................................. 18
+2.5 Pin Description ............................................................................................................................ 19
+2.5.1 Static Memory/DVP/I2Cx/UARTx/PWM/MSC1 ....................................................................... 19
+2.5.2 SFC .......................................................................................................................................22
+2.5.3 MSC0/GMAC/PWMx/UARTx/I2C1/SSI1/SSI_SLV/JTAG/SLCD/DMIC/I2S ....................... 22
+2.5.4 System Control ..................................................................................................................... 27
+2.5.5 Digital IO/core power/ground ............................................................................................... 27
+2.5.6 DDR power/ground ...............................................................................................................28
+2.5.7 Analog - USB ........................................................................................................................28
+2.5.8 Analog - MIPI and DVP ........................................................................................................ 29
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 3
+
+2.5.9 Analog - SARADC ................................................................................................................ 29
+2.5.10 Analog - CODEC ................................................................................................................ 30
+2.5.11 Analog - EFUSE ................................................................................................................. 30
+2.5.12 Analog - CLOCK/PLL ......................................................................................................... 30
+3 Electrical Specifications ..................................................................................................................... 31
+3.1 Absolute Maximum Ratings .................................................................................................... 31
+3.2 Recommended operating conditions ...................................................................................... 32
+3.3 Audio codec ............................................................................................................................. 34
+3.3.1 Microphone input .................................................................................................................. 34
+3.3.2 ALC ....................................................................................................................................... 35
+3.3.3 Headphone output ................................................................................................................35
+3.3.4 Microphone bias ................................................................................................................... 35
+3.4 Power On, Reset and BOOT ...................................................................................................35
+3.4.1 Power-On Sequence ............................................................................................................ 35
+3.4.2 Reset procedure ................................................................................................................... 38
+3.4.3 BOOT ....................................................................................................................................39
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 4
+
+List of Figures
+Figure1- 1 T31X Diagram ............................................................................................................................................. 7
+Figure2- 1 T31X package outline drawing ..................................................................................................................18
+Figure2- 2 T31X pin to ball assignment ...................................................................................................................... 19
+
+Figure3- 1 Power-On Sequence Diagram ....................................................................................................38
+Figure3- 2 Boot sequence diagram of T31X .............................................................................................. 40
+
+List of Tables
+Table2- 1 Static Memory/DVP/I2Cx/UARTx/PWM/MSC1 Pins(13) ................................................................19
+Table2- 2 SFC Pins(4) ..........................................................................................................................................22
+Table2- 3 MSC0/GMAC/PWMx/UARTx/I2C1/SSI1/SSI_SLV//JTAG/SLCD/DMIC/I2S Pins (30) .............. 22
+Table2- 4 System Control Pins(1) ....................................................................................................................... 27
+Table2- 5 IO/Core power supplies Pins (10) ....................................................................................................... 27
+Table2- 6 DDR power/ground supplies Pins (5) ................................................................................................. 28
+Table2- 7 USB 2.0 OTG (4) ................................................................................................................................ 28
+Table2- 8 MIPI CSI and DVP(8) .........................................................................................................................29
+Table2- 9 SARADC Pins (3) ............................................................................................................................... 29
+Table2- 10 CODEC Pins (4) ................................................................................................................................ 30
+Table2- 11 EFUSE Pins (1) ................................................................................................................................. 30
+Table2- 12 CLOCK/PLL Pins (4) ........................................................................................................................30
+Table3- 2 Absolute Maximum Ratings ................................................................................................................31
+Table3- 3 Recommended operating conditions for power supplies .................................................................... 32
+Table3- 4 Recommended operating conditions for VDDIO0/VDDIO1/VDDIO2 supplied pins .......................33
+Table3- 5 Recommended operating conditions for others .................................................................................. 33
+Table3- 6 Thermal Resistance parameter ............................................................................................................ 33
+Table3- 7 Power-On Timing Parameters .............................................................................................................36
+Table3- 8 Boot Configuration of T31X ............................................................................................................... 39
+Right Click on above list so it turns grey > Update Field > Update entire table to add new tables
+
+(see page 7 for further instructions on how to automate populating list)
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 5
+
+Introduction
+T31X is a smart video application processor targeting for video devices like mobile camera, security
+survey, video talking, video analysis and so on. This SoC introduces a kind of innovative architecture to
+fulfill both high performance computing and high quality image and video encoding requirements
+addressed by video devices. T31X provides high-speed CPU computing power, excellent image signal
+process, fluent 2592x2048 resolution video recording.
+
+The CPU (Central Processing Unit) core, equipped with 32kB instruction and 32kB data L1 cache, and
+128kB L2 cache, operating at 1.4GHz, and full feature MMU function performs OS related tasks. At the
+heart of the CPU core is XBurst® processor engine. XBurst® is an industry leading microprocessor core
+which delivers superior high performance and best-in-class low power consumption. A hardware
+floating-point unit which compatible with IEEE754 is also included.
+
+The VPU (Video Processing Unit) core is a video encoder engine designed to process video streams using
+the HEVC(ISO/IEC 23008-2 High Efficiency Video Coding) and AVC(ISO/IEC 14496-10 Advanced Video
+Coding) standards. It also supports still picture encoding using the JPEG standard(ITU T.81). Together
+with the on chip video accelerating engine and post image processing unit, T31X delivers high video
+performance. The maximum resolution of 2592x2048 in the format of AVC are supported in encoding.
+up to 40Mbit/s, 2592x2048@25fps.
+
+The ISP (Image signal processor) core supports excellent image process with the image from raw sensors.
+It supports DVP,BT and MIPI interface. With the functions, such as 3A, 2D and 3D denoise, WDR/HDR,
+lens shading, it can supply maximum resolution 2592x2048 resolution image for view or encoding to
+store or transfer.
+
+For more quickly and easily to use T31X, 1G bit DDR2 is integrated on chip.
+
+On-chip modules such as audio CODEC, multi-channel SAR-ADC controller and camera interface offer
+designers a economical suite of peripherals for video application. WLAN, Bluetooth and expansion
+options are supported through high-speed SPI and MMC/SD/SDIO host controllers. Other peripherals
+such as USB OTG, MAC, UART and SPI as well as general system resources provide enough computing
+and connectivity capability for many applications.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 6
+
+1 Overview
+1.1 Block Diagram
+
+Figure1- 1 T31X Diagram
+
+1.2 Features
+1.2.1 CPU
+
+
+XBurst®-1 core
+– XBurst® FPU instruction set supporting both single and double floating point format which
+are IEEE754 compatible
+– XBurst® 9-stage pipeline micro-architecture, the operating frequency is 1.4GHz
+
+
+
+MMU
+– 32-entry joint-TLB
+– 8 entry instruction TLB
+– 8 entry data TLB
+
+
+
+L1 Cache
+– 32kB instruction cache
+– 32kB data cache
+
+
+
+Hardware debug support
+
+
+
+16kB tight coupled memory
+
+
+
+L2 Cache
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 7
+
+– 128kB unify cache
+
+1.2.2 Video Processor Unit
+
+
+
+
+
+Support DVT HEVC/AVC/JPEG Encoder
+Support HEVC up to 20Mbit/s and AVC up to 40Mbit/s, maximum frame rate is
+2592x2048@25fps
+maximum size up to 2592x2048 resolution
+
+1.2.3 Image Signal Processor
+
+
+Dynamic/Static Defect Pixel Correction
+
+
+
+Green Equalization
+
+
+
+Black Level Correction
+
+
+
+Lens Shading Correction
+
+
+
+3A(Auto Exposure/Auto White Balance/Auto Focus)
+
+
+
+Support Statistical Information Output(3A)
+
+
+
+Adaptive Dynamic Range Compression
+
+
+
+Demosaic
+
+
+
+Sharpen
+
+
+
+Bayer Denoise
+
+
+
+2D/3D Denosie
+
+
+
+Color Noise Suppression
+
+
+
+Lens Distortion Correction
+
+
+
+2D Color Correction
+
+
+
+3D Color Correction
+
+
+
+Gamma Correction
+
+
+
+Defog, WDR
+
+
+
+3 Independent Image Scaler and Output
+
+
+
+Crop, Mirror and Flip
+
+
+
+Support Maximum Resolution:2592x2048
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 8
+
+1.2.4.Smart LCD Controller
+
+
+
+
+Basic Features
+―
+
+Display size up to 800x600@60Hz,24BPP
+
+―
+
+Smart LCD interface 6800(type A) and 8080(type B)
+
+Colors Supports
+―
+
+
+
+Support up to 16,777,216 (16M) colors
+
+Panel Supports
+―
+
+transmit 565 by one cycle via SLCD 16bit data interface
+
+―
+
+transmit 666 by two cycle via SLCD 9bit data interface
+
+―
+
+transmit 565 by two cycle via SLCD 8bit data interface
+
+―
+
+transmit 888 by three cycle via SLCD 8bit data interface
+
+―
+
+Supports different size of display panel
+
+―
+
+Supports internal DMA operation and direct write register operation
+
+1.2.5 Video input
+
+
+Support 8/10/12 bit RGB Bayer input
+
+
+
+Support DVP, BT1120(serial mode)/BT656/BT601 and MIPI CSI(2 lane up to 1.5Gbps)
+
+
+
+Support maximum: 2592x2048@25fps
+
+
+
+Support single-sensor input
+
+1.2.6 Audio System
+
+
+Integrated Audio codec
+– 24 bits DAC with 93dB SNR
+– 24 bits ADC with 92dB SNR
+– Support signal-ended and differential microphone input and line input
+– Automatic Level Control (ALC) for smooth audio recording
+– Pure logic process: no need for mixed signal layers and less mask cost
+– Programmable input and output analog gains
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 9
+
+– Digital interpolation and decimation filter integrated
+– Sampling rate 8K/12K/16K/24K/32/44.1K/48K/96Kl
+
+1.2.7 Memory Interface
+
+
+Integrated 1G bit DDR on chip
+
+
+
+Static memory interface
+– Support 6 external chip selection CS6~1#. Each bank can be configured separately
+– The size and base address of static memory banks are programmable
+– Direct interface to 8-bit bus width external memory interface devices or external static
+memory to each bank. Read/Write strobe setup time and hold time periods can be
+programmed and inserted in an access cycle to enable connection to low-speed memory
+– Wait insertion by WAIT pin
+– Automatic wait cycle insertion to prevent data bus collisions in case of consecutive
+memory accesses to different banks, or a read access followed by a write access to the
+same bank
+
+1.2.8 System Functions
+
+
+Clock generation and power management
+– On-chip 12/24/48MHZ oscillator circuit
+– One three-chip phase-locked loops (PLL) with programmable multiplier
+– CCLK, HHCLK, H2CLK, PCLK, H0CLK, DDR_CLK, VPU_CLK frequency can be changed
+separately for software by setting registers
+– SSI clock supports 50M clock
+– MSC clock supports 100M clock
+– Functional-unit clock gating
+– Shut down power supply for P0, ISP, VPU, IPU
+
+
+
+Timer and counter unit with PWM output and/or input edge counter
+– Provide eight separate channels, six of them have input signal transition edge counter
+– 16-bit A counter and 16-bit B counter with auto-reload function every channel
+– Support interrupt generation when the A counter underflow
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 10
+
+– Three clock sources: RTCLK (real time clock), EXCLK (external clock input), PCLK (APB Bus
+clock) selected with 1, 4, 16, 64, 256 and 1024 clock dividing selected
+– Every channel has PWM output
+
+
+OS timer controller
+– 64-bit counter and 32-bit compare register
+– Support interrupt generation when the counter matches the compare register
+– Two clock sources: RTCLK (real time clock), HCLK (system bus clock) selected with 1, 4, 16,
+64, 256 and 1024 clock dividing selected
+
+
+
+Interrupt controller
+– Total 64 interrupt sources
+– Each interrupt source can be independently enabled
+– Priority mechanism to indicate highest priority interrupt
+– All the registers are accessed by CPU
+– Unmasked interrupts can wake up the chip in sleep mode
+– Another set of source, mask and pending registers to serve for PDMA
+
+
+
+Watchdog timer
+– Generates WDT reset
+– A 16-bit Data register and a 16-bit counter
+– Counter clock uses the input clock selected by software
+
+
+
+PCLK, EXTAL and RTCCLK can be used as the clock for counter
+
+
+
+The division ratio of the clock can be set to 1, 4, 16, 64, 256 and 1024 by software
+
+
+
+Direct memory access controllers
+– Support up to 32 independent DMA channels
+– Descriptor or No-Descriptor Transfer mode compatible with previous JZ SoC
+– Transfer data units: 1-byte, 2-byte, 4-byte, 16-byte, 32-byte, 64-byte, 128-byte
+– Transfer number of data unit: 1 ~ 224 - 1
+– Independent source and destination port width: 8-bit, 16-bit, 32-bit
+– Fixed three priorities of channel groups: 0~3, highest; 4~11: mid; 12~31: lowest
+– An extra INTC IRQ can be bound to one programmable DMA channel
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 11
+
+
+
+SAR A/D Controller
+– 1 Channels
+– Resolution: 10-bit
+– Integral nonlinearity: ±1 LSB
+– Differential nonlinearity: ±0.5 LSB
+– Resolution/speed: up to 2MSPS
+– Max Frequency: 24MHz
+– Low power dissipation: 1.5mW(worst)
+– Support multi-touch detect
+– Support write control command by software
+– Single-end and Differential Conversion Mode
+– Support external touch screen controller
+– Pin Description
+
+
+
+OTP Slave Interface
+– Total 1024 bits. Lower 192bits are read only, other higher bits are read-able and write-able
+
+1.2.9 Peripherals
+
+
+General-Purpose I/O ports
+– Each port can be configured as an input, an output or an alternate function port
+– Each port can be configured as an interrupt source of low/high level or rising/falling edge
+triggering. Every interrupt source can be masked independently
+– Each port has an internal pull-up or pull-down resistor connected. The pull-up/down
+resistor can be disabled
+– GPIO output 3 interrupts, each interrupt corresponds to the group, to INTC
+
+
+
+SMB Controller
+– Two-wire SMB serial interface – consists of a serial data line (SDA) and a serial clock (SCL)
+– Two speeds
+
+
+Standard mode (100 Kb/s)
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 12
+
+
+
+Fast mode (400 Kb/s)
+
+– Device clock is identical with pclk
+– Programmable SCL generator
+– Master or slave SMB operation
+– 7-bit addressing/10-bit addressing
+– 16-level transmit and receive FIFOs
+– Interrupt operation
+– The number of devices that you can connect to the same SMB-bus is limited only by the
+maximum bus capacitance of 400pF
+– APB interface
+– 2 independent SMB channels (SMB0, SMB1)
+
+
+
+One High Speed Synchronous serial interfaces (SFC)
+– 3 protocols support: National’s Microwire, TI’s SSP, and Motorola’s SPI
+– transmit-only or receive-only operation
+– MSB first for command and data transfer, and LSB first for address transfer
+– 64 entries x 32 bits wide data FIFO
+– one device select
+– Configurable sampling point for reception
+– Configurable timing parameters: tSLCH, tCHSH and tSHSL
+– Configurable flash address wide are supported
+– transfer formats: Standard SPI only
+– two data transfer mode: slave mode and DMA mode
+– Configurable 6 phases for software flow
+
+
+
+Normal Speed Synchronous serial interfaces (SSI1)
+– 3 protocols support: National’s Microwire, TI’s SSP, and Motorola’s SPI
+– Full-duplex or transmit-only or receive-only operation
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 13
+
+– Programmable transfer order: MSB first or LSB first
+– 128 entries deep x 32 bits wide transmit and receive data FIFOs
+– Configurable normal transfer mode or Interval transfer mode
+– Programmable clock phase and polarity for Motorola’s SSI format
+– Back-to-back character transmission/reception mode
+– Loop back mode for testing
+
+
+
+Three UARTs (UART0, UART1, UART2)
+– Full-duplex operation
+– 5-, 6-, 7- or 8-bit characters with optional no parity or even or odd parity and with 1, 1½, or
+2 stop bits
+– 64x8 bit transmit FIFO and 64x11bit receive FIFO
+– Independently controlled transmit, receive (data ready or timeout), line status interrupts
+– Internal diagnostic capability Loopback control and break, parity, overrun and framingerror is provided
+– Separate DMA requests for transmit and receive data services in FIFO mode
+– Supports modem flow control by software or hardware
+– Slow infrared asynchronous interface that conforms to IrDA specification
+
+
+
+Two MMC/SD/SDIO controllers (MSC0, MSC1)
+– Fully compatible with the MMC System Specification version 4.2
+– Support SD Specification 3.0
+– Support SD I/O Specification 1.0 with 1 command channel and 4 data channels
+– Consumer Electronics Advanced Transport Architecture (CE-ATA – version 1.1)
+– Maximum data rate is 50MBps
+– Support MMC data width 1bit ,4bit and 8bit
+– Built-in programmable frequency divider for MMC/SD bus
+– Built-in Special Descriptor DMA
+– Maskable hardware interrupt for SDIO interrupt, internal status and FIFO status
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 14
+
+– 128 x 32 built-in data FIFO
+– Multi-SD function support including multiple I/O and combined I/O and memory
+– IRQ supported enable card to interrupt MMC/SD controller
+– Single or multi block access to the card including erase operation
+– Stream access to the MMC card
+– Supports SDIO read wait, interrupt detection during 1-bit or 4-bit access
+– Supports CE-ATA digital protocol commands
+– Support Command Completion Signal and interrupt to CPU
+– Command Completion Signal disable feature
+– The maximum block length is 4096bytes
+
+
+
+USB 2.0 OTG interface
+– Complies with the USB 2.0 standard for high-speed (480 Mbps) functions and with the OnThe-Go supplement to the USB 2.0 specification
+– Operates either as the function controller of a high- /full-speed USB peripheral or as the
+host/peripheral in point-to-point or multi-point communications with other USB
+functions
+– Supports Session Request Protocol (SRP) and Host Negotiation Protocol (HNP)
+– UTMI+ Level 3 Transceiver Interface
+– Soft connect/disconnect
+– 16 Endpoints
+– Dedicate FIFO
+– Supports control, interrupt, ISO and bulk transfer
+
+
+
+Ethernet Media Access controller and interface
+– 10, 100Mbps data transfer rates with the following PHY interfaces:
+
+
+RMII interface to communicate with an external Fast Ethernet PHY
+
+– Full-duplex operation:
+
+
+IEEE 802.3x flow control automatic transmission of zero-quanta Pause frame on flow
+control input de-assertion
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 15
+
+
+
+forwarding of received Pause frames to the user application
+
+– Half-duplex operation:
+– CSMA/CD Protocol support
+– Frame bursting and frame extension in 100 Mbps half-duplex operation
+– Preamble and start of frame data (SFD) insertion in Transmit path
+– Preamble and SFD deletion in the Receive path
+– Automatic CRC and pad generation controllable on a per-frame basis
+– Automatic Pad and CRC Stripping options for receive frames
+– Flexible address filtering modes, such as:
+
+
+Up to 31 additional 48-bit perfect (DA) address filters with masks for each byte
+
+
+
+64-bit Hash filter for multicast and unicast (DA) addresses
+
+
+
+Option to pass all multicast addressed frames
+
+
+
+Promiscuous mode to pass all frames without any filtering for network monitoring
+
+
+
+Pass all incoming packets (as per filter) with a status report
+
+– Support Standard or Jumbo Ethernet frames with up to 2 KB of size
+– IEEE 802.1Q VLAN tag detection for reception frames
+– MDIO master interface for PHY device configuration and management
+– CRC replacement, Source Address field insertion or replacement, and VLAN insertion,
+replacement, and deletion in transmitted frames with per-frame control
+– Programmable watchdog timeout limit in the receive path
+– Detect remote wake-up frames and AMD magic packets
+
+
+
+Digital True Random Number Generator（DTRNG）
+– Pure digital logic circuits
+– True random number
+– Interrupt mode and no interrupt mode
+
+1.2.10 Bootrom
+16kB Boot ROM memory
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 16
+
+1.3 Characteristic
+Item
+
+Characteristic
+
+Process Technology
+
+22nm CMOS low power
+
+Power supply voltage
+
+General purpose I/O: 1.5~3.6V
+DDR I/O: 1.8V(DDR2) ± 0.1V
+EFUSE programming: 1.8V ± 10%
+Analog power supply 1: 1.8V ± 10%
+Analog power supply 2: 3.3V ± 10%
+Core: 0.8V ± 0.1V
+
+Package
+
+QFN 88
+
+Operating frequency
+
+1.4GHz
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 17
+
+2 Packaging and Pinout Information
+2.1 Overview
+T31X processor is offered in QFN88, show in Figure 2- 1. The T31X pin to ball assignment is show in
+Figure 2- 2. The detailed pin description is listed in Table 2- 1 ~ Table 2- 12.
+
+2.2 Solder Process
+T31X package is lead-free. It’s reflow profile follows the IPC/JEDEC lead-free reflow profile as contained
+in J-STD-020C.
+
+2.3 Moisture Sensitivity Level
+T31X package moisture sensitivity is level 3.
+
+2.4 T31X Package
+
+Figure2- 1 T31X package outline drawing
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 18
+
+Figure2- 2 T31X pin to ball assignment
+
+2.5 Pin Description
+2.5.1 Static Memory/DVP/I2Cx/UARTx/PWM/MSC1
+Table2- 1 Static Memory/DVP/I2Cx/UARTx/PWM/MSC1 Pins(13)
+
+QFN Pin Pin Function IO Cell
+Location
+Names
+Char.
+11
+
+SA02
+PA18
+
+2mA
+
+Pin Function Description
+SA2: Static memory address bus bit 2
+PA18: GPIO group A bit 18
+
+IO
+Power
+VDDIO0
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 19
+
+QFN Pin Pin Function IO Cell
+Location
+Names
+Char.
+
+12
+
+SD7
+
+2mA
+
+SMB0_SCK
+
+PU-rst SMB0_SCK: I2C 0 serial clock
+
+PA13
+
+13
+
+SD7: Static memory data bus bit 7
+
+SD6
+
+2mA
+
+SMB0_SDA
+
+PU-rst SMB0_SDA: I2C 0 serial data
+
+VDDIO0
+
+SD6: Static memory data bus bit 6
+VDDIO0
+
+PA12: GPIO group A bit 12
+
+RD
+
+2mA
+
+DVP_VSYNC
+
+PU-rst DVP_VSYNC: DVP vertical sync
+
+RD: Static memory read signal
+
+SMB1_SCK
+
+SMB1_SCK: I2C 1 serial clock
+
+MSC1_CMD
+
+MSC1_CMD: MSC (MMC/SD) 1 command
+
+PA17
+
+PA17: GPIO group A bit 17
+
+CS2
+
+IO
+Power
+
+PA13: GPIO group A bit 13
+
+PA12
+
+14
+
+Pin Function Description
+
+2mA
+
+VDDIO0
+
+CS2: Static memory chip 2 select
+
+DVP_HSYNC PU-rst DVP_HSYNC: DVP horizontal sync
+15
+
+16
+
+SMB1_SDA
+
+SMB1_SDA: I2C 1 serial data
+
+MSC1_CLK
+
+MSC1_CLK: MSC (MMC/SD) 1 clock output
+
+PA16
+
+PA16: GPIO group A bit 16
+
+SA1
+
+2mA
+
+SA1: Static memory address bus bit 1
+
+DVP_MCLK
+
+SRrst*
+
+DVP_MCLK: DVP main clock output
+
+2mA
+
+SA0: Static memory address bus bit 0
+
+PA15
+SA0
+17
+
+VDDIO0
+
+VDDIO0
+
+PA15: GPIO group A bit 15
+
+DVP_PCLK
+
+DVP_PCLK: camera sensor pixel clock input
+
+PWM0
+
+PWM0: PWM channel 0 output
+
+PA14
+
+PA14: GPIO group A bit 14
+
+VDDIO0
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 20
+
+QFN Pin Pin Function IO Cell
+Location
+Names
+Char.
+
+18
+
+SD5
+
+2mA
+
+SD5: Static memory data bus bit 5
+
+DVP_D11
+
+PUrst*
+
+DVP_D11:DVP data in bit 11
+
+UART2_RXD
+
+MSC1_D3: MSC (MMC/SD) 1 data bit 3
+
+PA11
+
+PA11: GPIO group A bit 11
+
+UART2_TXD
+
+UART2_TXD: UART2 data transmit
+
+MSC1_D2
+
+MSC1_D2: MSC (MMC/SD) 1 data bit 2
+
+PA10
+
+PA10: GPIO group A bit 10
+
+DVP_D9:DVP data in bit 9
+
+UART2_RTS
+
+UART2_RTS: UART2 request-to-send handshaking
+
+MSC1_D1
+
+MSC1_D1: MSC (MMC/SD) 1 data bit 1
+
+PA09
+
+PA09: GPIO group A bit 09
+2mA
+
+VDDIO0
+
+VDDIO0
+
+SD2: Static memory data bus bit 2
+
+DVP_D8
+
+DVP_D8:DVP data in bit 8
+
+UART2_CTS
+
+UART2_CTS: UART2 clear-to-send handshaking
+
+MSC1_D0
+
+MSC1_D0: MSC (MMC/SD) 1 data bit 0
+
+PA08
+
+PA08: GPIO group A bit 08
+2mA
+
+VDDIO0
+
+SD3: Static memory data bus bit 3
+
+DVP_D9
+
+SD1
+22
+
+2mA
+
+IO
+Power
+
+SD4: Static memory data bus bit 4
+DVP_D10:DVP data in bit 10
+
+SD2
+
+21
+
+2mA
+
+DVP_D10
+
+SD3
+
+20
+
+UART2_RXD: UART2 data receive
+
+MSC1_D3
+
+SD4
+
+19
+
+Pin Function Description
+
+VDDIO0
+
+SD1: Static memory data bus bit 1
+
+DVP_D7
+
+DVP_D7:DVP data in bit 7
+
+UART1_RXD
+
+UART1_RXD: UART 1 receive data
+
+PA07
+
+PA07: GPIO group A bit 07
+
+VDDIO0
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 21
+
+QFN Pin Pin Function IO Cell
+Location
+Names
+Char.
+SD0
+23
+
+2mA
+
+Pin Function Description
+
+IO
+Power
+
+SD0: Static memory data bus bit 0
+
+DVP_D6
+
+DVP_D6:DVP data in bit 6
+
+UART1_TXD
+
+UART1_TXD: UART1 data transmit
+
+PA06
+
+PA06: GPIO group A bit 06
+
+VDDIO0
+
+2.5.2 SFC
+Table2- 2 SFC Pins(4)
+
+QFN Pin
+Location
+45
+
+46
+
+47
+
+Pin Function
+Names
+
+IO Cell
+Char.
+
+SFC_CE0
+
+8mA
+
+SFC_CE0: high speed ssi chip 0 select
+
+PA28
+
+PU-rst
+
+PA28: GPIO group A bit 28
+
+SFC_DR
+
+8mA
+
+SFC_DR: high speed ssi receive data
+
+PA24
+
+PU-rst
+
+PA24: GPIO group A bit 24
+
+SFC_DT
+
+8mA
+
+SFC_DT: high speed ssi transmit data
+
+PA23
+
+PU-rst
+
+PA23: GPIO group A bit 23
+
+Pin Function Description
+
+IO
+Power
+VDDIO1
+
+VDDIO1
+
+VDDIO1
+
+SMT-rst
+48
+
+SFC_CLK
+
+8mA
+
+SFC_CLK: high speed ssi clock
+
+PA27
+
+PU-rst
+
+PA27: GPIO group A bit 27
+
+VDDIO1
+
+2.5.3 MSC0/GMAC/PWMx/UARTx/I2C1/SSI1/SSI_SLV/JTAG/SLCD/DMIC/I2S
+Table2- 3 MSC0/GMAC/PWMx/UARTx/I2C1/SSI1/SSI_SLV//JTAG/SLCD/DMIC/I2S Pins (30)
+
+QFN Pin
+Location
+
+1
+
+Pin Function
+Names
+
+IO Cell
+Char.
+
+Pin Function Description
+
+PWM0
+
+2mA
+
+PWM0: PWM channel 0 output
+
+SSI1_DT
+
+PD-rst
+
+SSI1_DT: normal speed ssi 1 transmit data
+
+PB17
+
+IO Power
+
+VDDIO1
+
+PB17: GPIO group B bit 17.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 22
+
+QFN Pin
+Location
+
+2
+
+Pin Function
+Names
+
+IO Cell
+Char.
+
+PWM1
+
+2mA
+
+PWM1: PWM channel 1 output
+
+SSI1_DR
+
+PD-rst
+
+SSI1_DR: normal speed ssi 1 receive data
+
+PB18
+MSC0_D1
+49
+
+51
+
+52
+
+2mA
+
+PB01
+
+PB01: GPIO group B bit 01
+2mA
+
+SSI_SLV_DT: ssi slave transmit data
+
+PB00
+
+PB00: GPIO group B bit 00
+2mA
+
+54
+
+SSI_SLV_CLK: ssi slave clock
+
+PB04
+
+PB04: GPIO group B bit 04
+
+MSC0_CMD
+
+2mA
+
+MSC0_CMD: MSC (MMC/SD) 0 command
+
+SSI_SLV_CE0
+
+PU-rst
+
+SSI_SLV_CE0: ssi slave chip 0 select
+
+57
+
+2mA
+
+2mA
+
+PB02
+
+MSC0_D2: MSC (MMC/SD) 0 data bit 2
+PB02: GPIO group B bit 02
+
+GMAC_MDIO
+
+2mA
+
+MSC1_D1
+
+PU-rst
+
+SLCD_D5
+
+GMAC_MDCK
+
+MSC0_D3: MSC (MMC/SD) 0 data bit 3
+PB03: GPIO group B bit 03
+
+VDDIO1
+
+VDDIO1
+
+VDDIO1
+
+GMAC_MDIO: gmac MDIO which is clocked by
+MDC
+MSC1_D1: MSC (MMC/SD) 1 data bit 1
+
+VDDIO1
+
+SLCD_D5: smart lcd data output bit 5
+
+PB11
+58
+
+VDDIO1
+
+PB05: GPIO group B bit 05
+
+PB03
+MSC0_D2
+
+VDDIO1
+
+MSC0_CLK: MSC (MMC/SD) 0 clock output
+
+SSI_SLV_CLK
+
+MSC0_D3
+
+VDDIO1
+
+MSC0_D0: MSC (MMC/SD) 0 data bit 0
+
+SSI_SLV_DT
+
+PB05
+53
+
+VDDIO1
+
+MSC0_D1: MSC (MMC/SD) 0 data bit 1
+SSI_SLV_DR: ssi slave receive data
+
+MSC0_CLK
+
+IO Power
+
+PB18: GPIO group B bit 18.
+
+SSI_SLV_DR
+
+MSC0_D0
+50
+
+Pin Function Description
+
+PB11: GPIO group B bit 11.
+2mA
+
+GMAC_MDCK: gmac manage data clock
+
+VDDIO1
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 23
+
+QFN Pin
+Location
+
+Pin Function
+Names
+MSC1_D0
+
+61
+
+PD-rst
+
+MSC1_D0: MSC (MMC/SD) 1 data bit 0
+I2S_SDTO: I2S serial data output signal
+
+SLCD_D4
+
+SLCD_D4: smart lcd data output bit 4
+
+PB10
+
+PB10: GPIO group B bit 10.
+2mA
+
+MSC1_CMD: MSC (MMC/SD) 1 command
+
+I2S_SDTI
+
+I2S_SDTI:I2S serial data input signal
+
+SLCD_D3
+
+SLCD_D3: smart lcd data output bit 3
+
+PB09
+
+PB09: GPIO group B bit 09.
+2mA
+
+I2S_DAC_LRCK: I2S DAC left/right clock
+
+SLCD_WR
+
+SLCD_WR: smart lcd write data control
+
+PB15
+
+PB15: GPIO group B bit 15.
+
+GMAC_RXD1
+
+2mA
+
+GMAC_RXD1: gmac receive data bit 1
+
+SLCD_TE
+
+PU-rst
+
+SLCD_TE: smart lcd crack control
+
+GMAC_TXCLK
+62
+
+63
+
+64
+
+VDDIO1
+
+VDDIO1
+
+PB16: GPIO group B bit 16.
+2mA
+
+GMAC_TXCLK: gmac transmitting clock
+
+SLCD_D0
+
+SLCD_D0: smart lcd data output bit 0
+
+PB06
+
+PB06: GPIO group B bit 06
+
+GMAC_PHY_CLK 2mA
+
+GMAC_PHY_CLK: gmac phy clock
+
+SLCD_D1
+
+SLCD_D1: smart lcd data output bit 1
+
+PB07
+
+PB07: GPIO group B bit 07
+
+GMAC_TXD0
+
+VDDIO1
+
+GMAC_RXD0: gmac receive data bit 0
+
+I2S_DAC_LRCK
+
+PB16
+
+IO Power
+
+GMAC_RXDV: gmac receive data valid
+
+MSC1_CMD
+
+GMAC_RXD0
+60
+
+Pin Function Description
+
+I2S_SDTO
+
+GMAC_RXDV
+
+59
+
+IO Cell
+Char.
+
+2mA
+
+VDDIO1
+
+VDDIO1
+
+GMAC_TXD0: gmac transmit data bit 0
+
+MSC1_D2
+
+MSC1_D2: MSC (MMC/SD) 1 data bit 2
+
+I2S_ADC_LRCK
+
+I2S_ADC_LRCK: I2S ADC left/right clock
+
+VDDIO1
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 24
+
+QFN Pin
+Location
+
+65
+
+Pin Function
+Names
+
+67
+
+Pin Function Description
+
+SLCD_D6
+
+SLCD_D6: smart lcd data output bit 6
+
+PB13
+
+PB13: GPIO group B bit 13.
+
+GMAC_TXD1
+
+2mA
+
+GMAC_TXD1: gmac transmit data bit 1
+
+MSC1_D3
+
+PU-rst
+
+MSC1_D3: MSC (MMC/SD) 1 data bit 3
+
+I2S_DAC_MCLK
+
+I2S_DAC_MCLK: I2S DAC system clock
+
+SLCD_D7
+
+SLCD_D7: smart lcd data output bit 7
+
+PB14
+
+PB14: GPIO group B bit 14.
+
+GMAC_TXEN
+
+66
+
+IO Cell
+Char.
+
+2mA
+
+IO Power
+
+VDDIO1
+
+GMAC_TXEN: gmac transmitting enable
+
+MSC1_CLK
+
+MSC1_CLK: MSC (MMC/SD) 1 clock output
+
+I2S_ADC_MCLK
+
+I2S_ADC_MCLK: I2S system clock
+
+SLCD_D2
+
+SLCD_D2: smart lcd data output bit 2
+
+PB08
+
+PB08: GPIO group B bit 08
+
+(BOOT_SEL0)
+PC00
+
+2mA
+
+It is taken as BOOT select bit 0 by Boot ROM code
+
+PU-rst
+
+PC00: GPIO group C bit 00
+
+UART0_RTS
+
+2mA
+
+UART0_RTS: UART 0 request-to-send handshaking
+
+VDDIO1
+
+VDDIO1
+
+I2S_DAC_BCLK: I2S DAC bit clock
+68
+
+I2S_DAC_BCLK
+
+SLCD_DC: smart lcd cmd/data identify
+
+SLCD_DC
+
+PB21: GPIO group B bit 21
+
+VDDIO1
+
+PB21
+UART0_CTS
+69
+
+70
+
+2mA
+
+UART0_CTS: UART 0 clear-to-send handshaking
+
+I2S_ADC_BCLK
+
+I2S_ADC_BCLK: I2S ADC bit clock
+
+SLCD_CS
+
+SLCD_CS: smart lcd chip select
+
+PB20
+
+PB20: GPIO group B bit 20
+
+UART0_TXD
+TDO
+
+2mA
+
+UART0_TXD: UART 0 data transmit
+TDO: JTAG data output
+
+VDDIO1
+
+VDDIO1
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 25
+
+QFN Pin
+Location
+
+71
+
+Pin Function
+Names
+
+IO Cell
+Char.
+
+SLCD_RDY
+
+SLCD_RDY: smart lcd work status
+
+PB22
+
+PB22: GPIO group B bit 22
+
+UART0_RXD
+
+2mA
+
+UART0_RXD: UART 0 data receive
+
+TDI
+
+PU-rst
+
+TDI: JTAG data input
+
+PB19
+
+71
+
+UART0_RXD
+
+2mA
+
+UART0_RXD: UART 0 data receive
+
+TDI
+
+PU-rst
+
+TDI: JTAG data input
+
+2mA
+
+UART1_RXD: UART 1 receive data
+
+TMS
+
+PU-rst
+
+TMS: JTAG mode select
+
+PB24
+
+74
+
+80
+
+2mA
+
+TCK: JTAG clock input
+
+PB23
+
+PB23: GPIO group B bit 23
+2mA
+
+PB31: GPIO group B bit 31
+
+SSI1_CE0
+
+2mA
+
+SSI1_CE0: normal speed ssi 1 chip 0 select
+
+DMIC_DAT1
+
+PU-rst
+
+DMIC_DAT1: digital microphone data bit 1
+
+PB30
+
+82
+
+SSI1_CLK
+
+2mA
+
+SSI1_CLK: normal speed ssi 1 clock
+
+DMIC_DAT0
+
+PU-rst
+
+DMIC_DAT0: digital microphone data bit 0
+
+VDDIO1
+
+VDDIO1
+
+VDDIO1
+
+PB29: GPIO group B bit 29
+
+PWM3
+
+2mA
+
+PWM3: PWM channel 3 output
+
+SSI1_DR
+
+PD-rst
+
+SSI1_DR: normal speed ssi 1 data receive
+
+DMIC_CLK
+
+VDDIO1
+
+PB30: GPIO group B bit 30
+
+PB29
+
+85
+
+VDDIO1
+
+UART1_TXD: UART 1 transmit data
+
+PD-rst
+
+81
+
+VDDIO1
+
+PB24: GPIO group B bit 24
+
+TCK
+
+GPIO_PB31
+
+VDDIO1
+
+PB19: GPIO group B bit 19
+
+UART1_RXD
+
+UART1_TXD
+
+IO Power
+
+PB19: GPIO group B bit 19
+
+PB19
+
+73
+
+Pin Function Description
+
+VDDIO1
+
+DMIC_CLK: digital microphone clock output
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 26
+
+QFN Pin
+Location
+
+Pin Function
+Names
+
+IO Cell
+Char.
+
+PB28
+
+86
+
+87
+
+IO Power
+
+PB28: GPIO group B bit 28
+
+PWM2
+
+2mA
+
+PWM2: PWM channel 2 output
+
+DRV_VBUS
+
+PD-rst
+
+DRV_VBUS:USB-5V control signal
+
+SSI1_DT
+
+SSI1_DT: normal speed ssi 1 transmit data
+
+PB27
+
+PB27: GPIO group B bit 27
+
+SMB1_SCK
+
+2mA
+
+SMB1_SCK: I2C 1 serial clock
+
+SSI1_CLK
+
+PU-rst
+
+SSI1_CLK: normal speed ssi 1 clock
+
+PB26
+
+88
+
+Pin Function Description
+
+VDDIO1
+
+VDDIO1
+
+PB26: GPIO group B bit 26
+
+SMB1_SDA
+
+2mA
+
+SMB1_SDA: I2C 1 serial data
+
+SSI1_CE0_
+
+PU-rst
+
+SSI1_CE0: normal speed ssi 1 chip 0 select
+
+PB25
+
+VDDIO1
+
+PB25: GPIO group B bit 25
+
+2.5.4 System Control
+Table2- 4 System Control Pins(1)
+
+QFN Pin
+Location
+7
+
+Pin Function
+Names
+PPRST_
+
+IO Cell
+Char.
+2mA
+SMT
+
+Pin Function Description
+PPRST_: RTC power on reset and RESET-KEY
+reset input
+
+IO
+Power
+VDDIO0
+
+2.5.5 Digital IO/core power/ground
+Table2- 5 IO/Core power supplies Pins (10)
+
+QFN Pin
+Location
+9
+56,84
+40
+
+Pin Names
+
+Pin Function Description
+
+VDDIO0
+
+VDDIO0: IO digital power for DVP power domain, 1.8V
+
+VDDIO1
+
+VDDIO1: IO digital power for normal function Pad power domain,
+1.8V/3.3V
+
+VDDIO2
+
+VDDIO2: IO digital power for normal function Pad power domain,
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 27
+
+QFN Pin
+Location
+
+Pin Names
+
+Pin Function Description
+1.8V/3.3V
+
+10,39,55, VDD
+
+VDD: CORE digital power, 0.8V
+
+72,83
+Epad
+
+VSS
+
+VSS: IO digital ground for none DRAM and CORE digital ground, 0V
+
+2.5.6 DDR power/ground
+Table2- 6 DDR power/ground supplies Pins (5)
+
+QFN Pin
+Location
+
+Pin Names
+
+Pin Function Description
+
+77
+
+VREF
+
+VREF: DDR reference voltage, (VREF = VDDMEM/2)
+
+76
+
+VDDMEM
+
+VDDMEM: DDR IO supply(1.8V for DDR2)
+
+75
+
+DDRVDD
+
+DDRVDD: DDR PHY 1.8V supply
+
+78
+
+DDR_PLLVCCD
+
+DDR_PLLVCCD: DDR PLL power supply for digital
+
+79
+
+DDR_PLLVCCA
+
+DDR_PLLVCCA: DDR PLL power supply for analog
+
+2.5.7 Analog - USB
+Table2- 7 USB 2.0 OTG (4)
+
+QFN Pin
+Location
+
+Pin Names
+
+Pin Function Description
+
+IO Power
+
+36
+
+USB0PP
+
+USB0PP: USB data-positive
+
+USB_AVD33
+
+35
+
+USB0PN
+
+USB0PN: USB data-negative
+
+USB_AVD33
+
+USB_AVD33
+
+USB_AVD33: This is the analog supply that is used to
+support 3.3V signaling. This supply has both integrated
+IO pads and associated ESD. The expectation is that this
+supply is unique to the USB PHY. The PHY provides two
+pins for this power supply, but they can often be
+bonded out to a single package pin if the parasitic are
+low enough to support the current draw.
+
+37
+
+-
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 28
+
+QFN Pin
+Location
+38
+
+Pin Names
+USB_AVD18
+
+Pin Function Description
+
+IO Power
+
+USB_AVD18: This is the analog supply that is used to
+support 1.8V signaling. This supply has both integrated
+IO pads.
+
+-
+
+2.5.8 Analog - MIPI and DVP
+Table2- 8 MIPI CSI and DVP(8)
+
+QFN Pin
+Location
+
+Pin Names
+
+Pin Function Description
+
+IO Power
+
+DATAN0
+
+DATAN0: In MIPI model is data lane 0 serial signal
+
+DVP_D5
+
+DVP_D5: In TTL model is DVP input data bit 5
+
+DATAP0
+
+DATAP0: In MIPI model is data lane 0 serial signal
+
+DVP_D4
+
+DVP_D4: In TTL model is DVP input data bit 4
+
+CLKN
+
+CLKN: In MIPI model is clock lane serial signal
+
+DVP_D3
+
+DVP_D3: In TTL model is DVP input data bit 3
+
+CLKP
+
+CLKP: In MIPI model is clock lane serial signal
+
+DVP_D2
+
+DVP_D2: In TTL model is DVP input data bit 2
+
+DATAN1
+
+DATAN1: In MIPI model is data lane 1 serial signal
+
+DVP_D1
+
+DVP_D1:In TTL model is DVP input data bit 1
+
+DATAP1
+
+DATAP1: In MIPI model is data lane 1 serial signal
+
+DVP_D0
+
+DVP_D0：In TTL model is DVP input data bit 0
+
+30
+
+MIPI_AVD08
+
+MIPI_AVD08: PHY analog power, 0.8V
+
+-
+
+31
+
+MIPI_AVD18
+
+MIPI_AVD18: PHY analog power, 1.8V
+
+-
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+MIPI_AVD18
+MIPI_AVD18
+
+MIPI_AVD18
+
+MIPI_AVD18
+
+MIPI_AVD18
+
+MIPI_AVD18
+
+NOTES:
+1. DVP_Dx signals can input form this Pad when configure the MIPI PHY to TTL model
+2.5.9 Analog - SARADC
+Table2- 9 SARADC Pins (3)
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 29
+
+QFN Pin
+Location
+32
+33
+34
+
+Pin Names
+
+IO
+
+Pin Function Description
+
+Power
+
+ADC_AUX0
+
+ADC_AUX0: SARADC channel 0 input
+
+ADC_AVDD
+
+ADC_VREF
+
+SADC_VREF: Voltage reference input, 0.5* ADC_AVDD ~
+0.99* ADC_AVDD
+
+-
+
+ADC_AVDD
+
+ADC_AVDD: SARADC analog power, 1.8 V
+
+-
+
+2.5.10 Analog - CODEC
+Table2- 10 CODEC Pins (4)
+
+QFN Pin
+Location
+
+Pin Names
+
+Pin Function Description
+
+IO
+Power
+
+41
+
+MICP
+
+MICP: differential microphone input
+
+CODEC_AVDD
+
+42
+
+VCM
+
+VCM: Reference voltage output
+
+CODEC_AVDD
+
+44
+
+HPOUT
+
+HPOUT: headphone output
+
+CODEC_AVDD
+
+43
+
+CODEC_AVDD
+
+CODEC_AVDD:1.8V analog supply
+
+-
+
+2.5.11 Analog - EFUSE
+Table2- 11 EFUSE Pins (1)
+
+QFN Pin
+Location
+8
+
+Pin Names
+EFUSE_AVD
+
+Pin Function Description
+EFUSE_AVD: EFUSE programming power, 0V/1.8V
+
+2.5.12 Analog - CLOCK/PLL
+Table2- 12 CLOCK/PLL Pins (4)
+
+QFN Pin
+Location
+5
+4
+
+Pin Names
+
+IO Cell
+Char.
+
+Pin Function Description
+
+IO
+Power
+
+EXCLK_XI
+
+2~30 MHz
+Oscillator,
+
+EXCLK_XI: external oscillator clock input or
+external 24MHz clock input
+
+VDDIO_OSC
+
+EXCLK_XO
+
+OSC on/off EXCLK_XO: external oscillator clock output
+
+VDDIO_OSC
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 30
+
+QFN Pin
+Location
+
+Pin Names
+
+IO Cell
+Char.
+
+IO
+
+3
+
+VDDIO_OSC
+
+-
+
+VDDIO_OSC: Oscillator power supply, 1.8V
+
+-
+
+6
+
+PLL_VDDHV
+
+-
+
+PLL_VDDHV:PLL analog supply power 1.8V
+
+-
+
+Pin Function Description
+
+Power
+
+NOTES:
+1
+
+All GPIO are programmable with multi-voltage (1.8V, 3.3V) general purpose, bi-directional I/O
+buffer with a selectable LVCMOS input or LVCMOS Schmitt trigger input and programmable pull-up
+/ pull-down. In the full-drive mode, this buffer can operate in excess of 100MHz frequency with
+15pF external load and 125 MHz with 10pF load, but actual frequency is load and system
+dependent. A maximum of 200 MHz can be achieved under small capacitive loads.
+
+2
+
+The meaning of phases in IO cell characteristics are:
+
+
+8/16mA out: The IO cell’s output driving strength is about 8/16mA.
+
+
+
+PU: The IO cell contains a pull-up resistor and fixed pull up.
+
+
+
+PD: The IO cell contains a pull-down resistor and fixed pull down.
+
+
+
+PU-rst: The IO cell during reset and after the pull up function is enabled.
+
+
+
+PD-rst: The IO cell during reset and after the pull down function is enabled.
+
+
+
+SMT: The IO cell is Schmitt trigger input and fixed.
+
+
+
+SMT-rst: The IO cell during reset and after the Schmitt trigger input function is enabled.
+SR-rst: The IO cell during reset and after the slew-rate function select fast mode
+
+3 Electrical Specifications
+3.1 Absolute Maximum Ratings
+The absolute maximum ratings for the processors are listed in Table 3- 1. Do not exceed these
+parameters or the part may be damaged permanently. Operation at absolute maximum ratings is not
+guaranteed.
+Table3- 1 Absolute Maximum Ratings
+
+Parameter
+
+Min
+
+Max
+
+Unit
+
+Storage Temperature
+
+-65
+
+150
+
+C
+
+Operation Temperature
+
+-40
+
+125
+
+C
+
+VDDMEM power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+DDRVDD power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 31
+
+Parameter
+
+Min
+
+Max
+
+Unit
+
+DDR_PLLVCCA power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+DDR_PLLVCCD power supplies voltage
+
+-0.1
+
+0.88
+
+V
+
+VDDIO0 power supplies voltage
+
+-0.5
+
+1.98
+
+V
+
+VDDIO1 power supplies voltage
+
+-0.5
+
+3.63
+
+V
+
+VDDIO2 power supplies voltage
+
+-0.5
+
+3.63
+
+V
+
+VDD power supplies voltage
+
+-0.1
+
+0.88
+
+V
+
+PLL_VDDHV power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+EFUSE_AVD power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+USB_AVD33 power supplies voltage
+
+-0.1
+
+3.63
+
+V
+
+USB_AVD18 power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+ADC_AVDD power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+CODEC_AVDD power supplies voltage
+
+-0.1
+
+1.98
+
+V
+
+Maximum ESD stress voltage, Human Body Model; Any pin to any
+supply pin, either polarity, or Any pin to all non-supply pins
+together, either polarity. Three stresses maximum.
+
+-
+
+2000
+
+V
+
+3.2 Recommended operating conditions
+Table3- 2 Recommended operating conditions for power supplies
+
+Symbol
+
+Description
+
+Min
+
+Typical
+
+Max
+
+Unit
+
+VDDMEM
+
+VDDMEM voltage for SSTL18 (DDR2)
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+DDRVDD
+
+DDR KGD power supplies voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+DDR_PLLVCCA
+
+DDR PLL power supplies voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+DDR_PLLVCCD
+
+DDR PLL power supplies voltage
+
+0.72
+
+0.8
+
+0.88
+
+V
+
+VDDIO0
+
+GPIO power domain 0 supplies voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+VDDIO1
+
+GPIO power domain 1 supplies voltage
+
+1.5
+
+3.3
+
+3.63
+
+V
+
+VDDIO2
+
+GPIO power domain 2 supplies voltage
+
+1.5
+
+3.3
+
+3.63
+
+V
+
+VDD
+
+VDD core supplies voltage
+
+0.72
+
+0.8
+
+0.88
+
+V
+
+PLL_VDDHV
+
+APLL, MPLL and VPLL analog voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 32
+
+EFUSE_AVD
+
+EFUSE program supplies voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+USB_AVD33
+
+USB PHY VCCA3P3 analog voltage
+
+3.0
+
+3.3
+
+3.6
+
+V
+
+USB_AVD18
+
+USB PHY VCC18 analog voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+ADC_AVDD
+
+SAR-ADC analog voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+CODEC_AVDD
+
+CODEC analog voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+MIPI_AVD08
+
+MIPI analog voltage
+
+0.72
+
+0.8
+
+0.98
+
+V
+
+MIPI_AVD18
+
+MIPI analog voltage
+
+1.62
+
+1.8
+
+1.98
+
+V
+
+Table3- 3 Recommended operating conditions for VDDIO0/VDDIO1/VDDIO2 supplied pins
+
+Symbol
+
+Parameter
+
+Min
+
+Typical
+
+Max
+
+Unit
+
+VIH18
+
+Input high voltage for 1.8V I/O application
+
+*0.65
+
+-
+
++0.3
+
+V
+
+VIL18
+
+Input low voltage for 1.8V I/O application
+
+-0.3
+
+-
+
+*0.35
+
+V
+
+VIH25
+
+Input high voltage for 2.5V I/O application
+
+1.7
+
+-
+
++0.3
+
+V
+
+VIL25
+
+Input low voltage for 2.5V I/O application
+
+-0.3
+
+-
+
+0.7
+
+V
+
+VIH33
+
+Input high voltage for 3.3V I/O application
+
+2
+
+-
+
++0.3
+
+V
+
+VIL33
+
+Input low voltage for 3.3V I/O application
+
+-0.3
+
+-
+
+0.8
+
+V
+
+Table3- 4 Recommended operating conditions for others
+
+Symbol
+
+Description
+
+Min
+
+Typical
+
+Max
+
+Unit
+
+TA
+
+Ambient temperature
+
+-20
+
+25
+
++85
+
+C
+
+TJ
+
+Junction temperature
+
+-40
+
+25
+
++125
+
+C
+
+Table3- 5 Thermal Resistance parameter
+
+Ambient Temperature
+Thermal Resistance
+
+JEDEC 2S2P
+
+25C
+
+θ ja（℃/W ）
+
+θ jb（℃/W ）
+
+θ jc（℃/W ）
+
+37.5
+
+16.8
+
+4.2
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 33
+
+3.3 Audio codec
+3.3.1 Microphone input
+
+There are two inputs channels named left ADC channel and right ADC channel. In the each channel,
+there are one inputs which are configured as differential input by the microphone PGA(MICL).
+
+The signal of microphone output should be input to AUDIO CODEC through DC-blocking
+capacitor, as shown in following figure. The capacitance and input resistance form a high pass filter. For
+example
+when the gain of the MIC module is 20dB, the input resistance is 45KΩ and 0.1uF DC-blocking capacitor
+is used, the lower cut-off frequency is:
+
+f 
+
+1
+1
+
+ 35.4 Hz
+2RC 2  45  10 3  0.1  10 6
+
+The capacitance of the DC-blocking capacitor should be determined by the minimum input impedance
+and application requirements.
+
+If the output of microphone is single-ended, the AUDIO ADC input should be connected as following
+figure.
+
+Microphone PGA has four gains to amplify the input signal, that is, 0dB, 20dB, 30dB and 40dB.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 34
+
+3.3.2 ALC
+Automatic Level Control (ALC) function is included to adjust the signal level, which is input into ADC. ALC
+will measure the signal magnitude and compare it to defined threshold. Then it will adjust the ALC
+controlled PAG (ALC_L and ALC_R) gain according to the comparison result.
+The programmable gain range of ALC controlled PAG is from -18dB to +28.5dB. The tuning step is 1.5dB.
+3.3.3 Headphone output
+Audio codec DAC output can drive 16Ω or 32Ω headphone load through DC-blocking capacitor.
+
+In the configuration using DC-blocking capacitor, shown in following figure, the headphone ground is
+connected to the real ground. The capacitance and the load resistance determine the lower cut-off
+frequency. For instance, if 16Ωheadphone and 100uF DC-blocking capacitor are used, the lower cut-off
+frequency is
+
+f 
+
+1
+1
+
+ 99.5 Hz
+2RC 2  16  100  10 6
+
+The DC-blocking capacitor can be increased to lower the cut-off frequency for better bass response.
+
+The headphone driver chooses DAC output as input. It has a gain rang from -39dB to +6dB with a tuning
+step of 1.5dB.
+
+3.3.4 Microphone bias
+Microphone bias output is used to bias external microphones. The bias voltage can varies from
+0.8*CODEC_AVDD to 0.975* CODEC_AVDD with a step of 0.025* CODEC_AVDD.
+
+3.4 Power On, Reset and BOOT
+3.4.1 Power-On Sequence
+The external voltage regulator and other power-on devices must provide the T31X processor with a
+specific sequence of power and resets to ensure proper operation. Figure 3- 1 shows this sequence and
+Table 3-7 gives the timing parameters. Following are the name of the power.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 35
+
+ VDD08: all 0.8V power supplies, VDD, DDR_PLLVCCD, MIPI_AVD08, USB_AVD08, PLL_VDD,
+USB_AVD08
+ VMEM: VDDMEM,DDRVDD
+ VDD18: VDDIO0,DDR_PLLVCCA,PLL_VDDHV,USB_AVD18,MIPI_AVD18,ADC_AVDD,
+CODEC_AVDD
+ VDD33: VDDIO1,VDDIO2,USB_AVD33
+
+Table3- 6 Power-On Sequence Parameters
+
+Symbol
+
+Parameter
+
+Min
+
+Typ
+
+Max
+
+Unit
+
+T1
+
+VDD08 rise time[1]
+
+-
+
+-
+
+400
+
+us
+
+T2
+
+VMEM rise time
+
+-
+
+-
+
+400
+
+us
+
+T3
+
+VDDIO18 rise time
+
+-
+
+-
+
+400
+
+us
+
+T4
+
+VDDIO33 rise time
+
+-
+
+-
+
+400
+
+us
+
+T5
+
+Delay between VDD08 arriving 50% to VMEM arriving
+50%
+
+T1*0.5
+
+-
+
+-
+
+us
+
+T6
+
+Delay between VMEM arriving 50% to VDDIO18 arriving
+50%
+
+0
+
+-
+
+-
+
+us
+
+T7
+
+Delay between VDDIO18 arriving 50% to VDDIO33
+arriving 50%
+
+T3
+
+-
+
+-
+
+us
+
+T8
+
+Delay between VDDIO18 arriving 50% to POR_OUT
+arriving 50%
+
+-
+
+240
+
+-
+
+us
+
+T9
+
+Delay between POR_OUT arriving 50% to chip inner
+reset arriving 50%
+
+10
+
+ms
+
+T10
+
+PPRST_ kept time[2]
+
+100
+
+us
+
+NOTES:
+ [1]: The power rise time is defined as 10% to 90%.
+ [2]: The PPRST_ must be kept at least 100us. After PPRST_ is deasserted, the corresponding chip
+reset will be extended at least 40ms.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 36
+
+PPRST_ reset mode
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 37
+
+POR reset mode
+Figure3- 1Power-On Sequence Diagram
+
+3.4.2 Reset procedure
+There are 4 reset sources: 1. PPRST_ pin reset; 2. POR hardware reset;3.WDT timeout reset; 4.
+Hibernating reset when exiting hibernating mode. After reset, program start from boot.
+ PPRST_ pin reset.
+This reset is triggered when PPRST_ pin is put to logic 0. It happens in power on RTC power and
+RESET-KEY pressed to reset the chip from unknown dead state. The reset end time is about 1M
+EXCLK cycles after rising edge of PPRST_.
+ POR(Power-On-Reset) hardware reset.
+The chip POR circuit provides reliable reset function for general applications. Powered by 1.8V
+analog supply and monitors 0.8V digital and 1.8V analog supply. It generates reset signal to
+digital logic. Set low if analog supply or digital supply is below the threshold voltage(typical
+1.35V threshold for 1.8V supply and 0.6V threshold for 0.8V supply), and will be set high if both
+of analog supply and digital supply exceed the threshold voltage.
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 38
+
+ WDT reset.
+This reset happens in case of WDT timeout. The reset keeps for about a few RTCLK cycles.
+ Hibernating reset.
+This reset happens in case of wakeup the main power from power down. The reset keeps for
+about 1ms ~ 125ms programable, plus 1M EXCLK cycles, start after WKUP_ signal is recognized.
+
+After reset, all GPIO shared pins are put to GPIO input function and most of their internal pull-up/down
+resistor are set to on, see “2.5Pin Description” for details. The oscillators are on. The USB 2.0 OTG PHY,
+the audio CODEC DAC/ADC, the SAR-ADCs is put in suspend mode.
+3.4.3 BOOT
+The boot sequence of the T31X is controlled by boot_sel0. The configuration is shown as follow:
+Table3- 7 Boot Configuration of T31X
+
+boot_sel0
+0
+1
+
+Boot method
+MMC/SD boot @ MSC0 (MMC/SD use GPIO Port B.
+MSC1 use GPIO Port C)
+SFC boot @ CS4 (SPI boot)
+
+Note:
+1. When SFC boot start failure, the program in bootrom will go into MSC0 boot, If it is boot from
+MMC/SD card at MSC0, its function pins MSC0_D0, MSC0_CLK, MSC0_CMD are initialized, the boot
+program loads the maximum 100KB code from MMC/SD card to cache and jump to it. Only one data bus
+which is MSC1_D0 is used.
+2. When MSC0 boot start failure, the program in bootrom will go into MSC1 boot，If it is boot from
+MMC/SD card at MSC1, its function pins MSC1_D0, MSC1_CLK, MSC1_CMD are initialized, the boot
+program loads the maximum 100KB code from MMC/SD card to cache and jump to it. Only one data bus
+which is MSC1_D0 is used. If MSC1 boot start failure, jump to USB boot.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 39
+
+Figure3- 2 Boot sequence diagram of T31X
+
+As shown in boot sequence Block Diagram，After reset, the boot program on the internal boot ROM
+executes as follows:
+1
+
+Disable all interrupts and read boot_sel[0] to determine the boot method.
+
+2
+
+There 26KB backup reading failed, the 26KB backup at 128th, 256 th , …, and finally 1024th page
+will be tried in consecutive order.
+
+3
+
+If it is boot from MMC/SD card at MSC0, its function pins MSC0_D0, MSC0_CLK, MSC0_CMD are
+initialized, the boot program loads the maximum 100KB code from MMC/SD card to cache and
+jump to it. Only one data bus which is MSC0_D0 is used.
+
+4
+
+If it is boot from USB, a block of code will be received through USB cable connected with host
+PC and be stored in cache. Then branch to this area in cache.
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 40
+
+5
+
+If it is boot from SPI nor/nand at SFC, its function pins SFC_CLK,SFC_CE, SFC_DR,SFC_DT,
+SFC_WP,SFC_HOLD are initialized,the boot program loads the maximum 100KB code from SPI
+NAND/NOR flash to cache and jump to it.
+
+Lumissil Microsystems – www.lumissil.com CONFIDENTIAL - 41
+
+
